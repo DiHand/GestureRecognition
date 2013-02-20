@@ -6,7 +6,7 @@
 <link href="../libraries/jqplot/jquery.jqplot.min.css" rel="stylesheet" media="screen">
 <script type='text/javascript'>
 	$(document).ready(function() {
-		var sampleDataLength = 1000;
+		var sampleDataLength = 10000;
 		var dt = 0.01; // Length of time in each sample (s)
 		var cutoff = 300; // Hz
 		var order = 1; // Order of low pass filter
@@ -15,6 +15,9 @@
 		
 		var sampleData = randomArray(sampleDataLength);
 		lowPass(sampleData, alpha, order);
+		var position = sampleData;
+		var velocity = timeDerivative(position);
+		var acceleration = timeDerivative(velocity);
 	});
 	
 	function lowPass(array, alpha, order){
@@ -40,6 +43,28 @@
 		}
 		return derivative 
 	}
+	
+	function localMaxima(array){ 
+		var maxima = [];
+		for (var i=2; i<array.length-2;i++){
+			if (array[i-2] < array[i-1] && array[i-1] < array[i] && array[i] > array[i+1] && array[i+1] > array[i+2]){
+				maxima.push(i);
+			}
+		}
+		return maxima
+	}
+	
+	function localMinima(array){
+		var minima = [];
+		for (var i=2; i<array.length-2;i++){
+			if (array[i-2]>array[i-1] && array[i-1]>array[i] && array[i]<array[i+1] && array[i+1]<array[i+2]){
+				minima.push(i);
+			}
+		}
+		return minima;
+	}
+		
+		
 	
 		
 </script>
