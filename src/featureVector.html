@@ -32,6 +32,16 @@
 		}
 		return array;
 	}
+	
+	function timeDerivative(array, dt){ 
+		var derivative = [];
+		for (var i=1;i<array.length;i++){
+			velocity.push((array[i]-array[i-1])/dt);
+		}
+		return derivative 
+	}
+	
+		
 </script>
 </head>
  
